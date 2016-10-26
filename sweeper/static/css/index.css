@@ -17,6 +17,10 @@
   background-color: #6666aa;
 }
 
+.box:hover {
+  background-color: #9999dd;
+}
+
 .empty {
   background-color: #aaaaff;
 }
