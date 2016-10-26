@@ -76,10 +76,10 @@ def index(r):
     session = r.GET["session"]
     playerid = r.GET["pid"]
     player = Player.objects.get(id=playerid)
-    return render(r, 'game.html', {"session": session, "player": player})
+    return render(r, 'sweeper/game.html', {"session": session, "player": player, "minesweeper_active": "active"})
   except Exception as e:
     print (str(e))
-    return render(r, 'index.html', {})
+    return render(r, 'sweeper/index.html', {"minesweeper_active": "active"})
 
 def new_game(r):
   try:

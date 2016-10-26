@@ -1,0 +1,29 @@
+{% extends 'main.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+  <link rel="stylesheet" href="{% static 'sweeper/css/index.css' %}">
+  <script src="{% static 'sweeper/js/index.js' %}"></script>
+
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <form>
+        <input id="name" type="text" class="form-control" placeholder="Your name"/>
+        <br/>
+        <div class="btn btn-success" onclick="new_game();" style="margin: auto; width: 200px;">Create new game</div>
+        <br/>
+        <br/>
+        OR
+        <br/>
+        <br/>
+        <div class="input-group">
+          <input id="session" type="text" class="form-control" placeholder="Game Session">
+          <span class="input-group-btn">
+            <button class="btn btn-success" onclick="join_game();" type="button">Join</button>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

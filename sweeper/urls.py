@@ -18,7 +18,7 @@ from django.contrib import admin
 from sweeper import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.index, name='sweeper'),
     url(r'^new_game', views.new_game, name='new_game'),
     url(r'^join_game', views.join_game, name='join_game'),
     url(r'^board_state', views.board_state, name='board_state'),

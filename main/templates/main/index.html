@@ -1,0 +1,19 @@
+{% extends 'main.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<style>
+    .gamebtn {
+        width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+</style>
+<div class="jumbotron">
+    <h1 style="text-align: center;">Choose Game</h1>
+    <br/>
+    <a  href="{% url 'sweeper' %}" class="btn btn-info gamebtn">Minesweeper</a>
+</div>
+
+{% endblock %}

@@ -15,6 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+DEPLOY = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -24,8 +25,10 @@ SECRET_KEY = 'm!6a7qfpv68ip+^r2$=3-1e4&uscwk@-z-*5=v962)34m7-skv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+if DEPLOY:
+    DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'main',
     'sweeper'
 ]
 
@@ -119,16 +123,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
+if DEPLOY:
+    PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+    # Static files (CSS, JavaScript, Images)
+    # https://docs.djangoproject.com/en/1.9/howto/static-files/
+    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
-)
+    STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
