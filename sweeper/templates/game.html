@@ -1,0 +1,41 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta name="description" content=""> -->
+    <!-- <meta name="author" content=""> -->
+    <!-- <link rel="icon" href="../../favicon.ico"> -->
+
+    <!-- Title *NEEDS CHANGING* -->
+    <title>Minesweeper</title>
+
+    <!-- JQuery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+    <!-- Javascript -->
+    <script src="{% static 'js/jquery.cookie.js' %}"></script>
+    <script src="{% static 'js/game.js' %}"></script>
+  </head>
+
+  <body>
+    <br />
+    <div id="pid" style="display: none">{{player.id}}</div>
+    <h3 style="text-align:center">Session key: <span style="color: red;">{{session}}</span></h3>
+    <h3 style="text-align:center"id="turn" class="yourturn"></h3>
+    <br/>
+    <div id="board">
+    </div>
+  </body>
+</html>
