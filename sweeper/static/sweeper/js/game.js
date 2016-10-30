@@ -74,16 +74,20 @@ function flag_box(x, y) {
 
 function request_board_state(re) {
     if (is_over) {
-        $("#turn")[0].innerHTML = losername + " lost!";
+        if (losername.length > 0)
+            $("#turn")[0].innerHTML = losername + " lost!";
+        else
+            $("#turn")[0].innerHTML = "The bombs have been found!";
         $("#turn").removeClass('yourturn');
-        $("#turn").addClass('someonelost');
+        $("#turn").removeClass('someonelost');
+        $("#turn").addClass('stabilized');
         return;
     }
     $.get("/sweeper/board_state", {
             "pid": pid,
         }, function(state) {
             on_board_state(state);
-            if (re) {
+            if (re && !is_over) {
                 setTimeout(request_board_state(re), re);
             }
         });
@@ -126,5 +130,10 @@ function on_board_state(state) {
                 }
             }
         }
+    }
+
+    if (state["over"] == 1) {
+        is_over = true;
+        losername = "";
     }
 }

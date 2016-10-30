@@ -62,9 +62,12 @@ def expand_board(board, _x, _y):
 
 def get_board_state(board, player):
   state = ""
+  over = 1
   for y in range(0, 20):
     for x in range(0, 20):
       if board.is_opened[y*20+x] == "0":
+        if board.state[y*20+x] == "0":
+          over = 0 # an unopened, non bomb
         state += "x"
         continue
       count = mine_count_around(board, x, y)
@@ -88,7 +91,8 @@ def get_board_state(board, player):
     "turn": turn,
     "board": state,
     "bombs": board.state if board.is_over > -1 else "",
-    "loser": loser
+    "loser": loser,
+    "over": over
   })
 
 def index(r):
