@@ -60,7 +60,7 @@ def expand_board(board, _x, _y):
   board.is_opened = "".join(new_board_opened)
   board.save()
 
-def get_board_state(board):
+def get_board_state(board, player):
   state = ""
   for y in range(0, 20):
     for x in range(0, 20):
@@ -69,7 +69,27 @@ def get_board_state(board):
         continue
       count = mine_count_around(board, x, y)
       state += str(count)
-  return state
+
+  players = Player.objects.filter(board=board)
+  loser = ""
+  if board.is_over > -1:
+    loser = Player.objects.get(id=board.is_over).username
+
+  playeridx = -1
+  for i in range(0, len(players)):
+    if players[i] == player:
+      playeridx = i
+  turn = "ERROR"
+  if playeridx != -1:
+    turn = players[board.cur_player].username if playeridx != board.cur_player else ""
+
+  return json.dumps({
+    "error": 0,
+    "turn": turn,
+    "board": state,
+    "bombs": board.state if board.is_over > -1 else "",
+    "loser": loser
+  })
 
 def index(r):
   try:
@@ -140,26 +160,11 @@ def board_state(r):
     pid = r.GET["pid"]
     player = Player.objects.get(id=pid)
     board = player.board
-    players = Player.objects.filter(board=board)
-    myindex = -1
-    for i in range(0, len(players)):
-      if players[i] == player:
-        myindex = i
-    if myindex == -1:
-      raise
-    loser = ""
-    if board.is_over > -1:
-      loser = Player.objects.get(id=board.is_over).username
   except Exception as e:
     print (str(e))
     return HttpResponse("Failed")
 
-  return HttpResponse(json.dumps({
-      "turn": players[board.cur_player].username if myindex != board.cur_player else "",
-      "board": get_board_state(board),
-      "bombs": board.state if board.is_over > -1 else "",
-      "loser": loser
-    }))
+  return HttpResponse(get_board_state(board, player))
 
 def check_box(r):
   try:
@@ -177,15 +182,15 @@ def check_box(r):
       raise
   except Exception as e:
     print (str(e))
-    return HttpResponse("Failed")
+    return HttpResponse({"error": "Failed"})
 
   if board.is_over > -1:
-    return HttpResponse("Game over sadeeg")
+    return HttpResponse({"error": "Game over sadeeg"})
   if board.cur_player != myindex:
-    return HttpResponse("7abibi not ur turn")
+    return HttpResponse({"error": "7abibi not ur turn"})
 
   if board.is_opened[y*20+x] == "1":
-    return HttpResponse("used box bro")
+    return HttpResponse({"error": "used box bro"})
 
   tmp = list(board.is_opened)
   tmp[y*20+x] = "1"
@@ -200,7 +205,7 @@ def check_box(r):
     # explore all neighboring
     expand_board(board, x, y)
 
-  return HttpResponse("/" + str(board.state[y*20+x]))
+  return HttpResponse(get_board_state(board, player))
 
 
 

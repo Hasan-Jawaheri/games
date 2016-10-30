@@ -36,56 +36,15 @@ $(document).ready(function () {
     $("#board")[0].innerHTML += elems;
 
     pid = $("#pid")[0].innerHTML;
-    setInterval(function() {
-        if (is_over) {
-            $("#turn")[0].innerHTML = losername + " lost!";
-            $("#turn").removeClass('yourturn');
-            $("#turn").addClass('someonelost');
-            return;
-        }
-        $.get("/sweeper/board_state",
-            {
-                "pid": pid,
-            }, function(state) {
-                state = JSON.parse(state);
-                if (state["turn"] == "") {
-                    $("#turn")[0].innerHTML = "Your turn!";
-                    $("#turn").addClass('yourturn');
-                    myturn = true;
-                } else {
-                    $("#turn")[0].innerHTML = state["turn"] + "'s turn";
-                    $("#turn").removeClass('yourturn');
-                    myturn = false;
-                }
+    request_board_state();
+    request_board_state(500);
 
-                for (var y = 0; y < board_y; y++) {
-                    for (var x = 0; x < board_x; x++) {
-                        var s = state["board"][y*board_x+x];
-                        if (s != "x") {
-                            $("#sq_"+x+"_"+y).addClass("empty");
-                            $("#sq_"+x+"_"+y).removeClass("flagged");
-                            if (parseInt(s) > 0) {
-                                $("#sq_"+x+"_"+y)[0].innerHTML = s;
-                            }
-                        }
-                    }
-                }
-
-                if (state["bombs"] != "") {
-                    is_over = true;
-                    losername = state["loser"];
-                    for (var y = 0; y < board_y; y++) {
-                        for (var x = 0; x < board_x; x++) {
-                            var s = state["bombs"][y*board_x+x];
-                            if (s == "1") {
-                                $("#sq_"+x+"_"+y).addClass("bomb");
-                                $("#sq_"+x+"_"+y).removeClass("flagged");
-                            }
-                        }
-                    }
-                }
-            });
-    }, 2000);
+    /*var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    var chat_socket = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/chat" + window.location.pathname);
+    chat_socket.onmessage = function(message) {
+        var data = JSON.parse(message.data);
+        console.log(data);
+    };*/
 });
 
 function check_box(x, y) {
@@ -98,16 +57,8 @@ function check_box(x, y) {
             "x": x,
             "y": y,
             "pid": pid
-        }, function(data) {
-            if (data[0] == "/") {
-                if (data[1] == "0") {
-                    // not a bomb!
-                    $("#sq_"+x+"_"+y).addClass("empty");
-                } else {
-                    // found a bomb!
-                    $("#sq_"+x+"_"+y).addClass("bomb");
-                }
-            }
+        }, function(state) {
+            on_board_state(state);
         });
     }
 }
@@ -119,4 +70,61 @@ function flag_box(x, y) {
     $("#sq_"+x+"_"+y).toggleClass("flagged");
 
     return false;
+}
+
+function request_board_state(re) {
+    if (is_over) {
+        $("#turn")[0].innerHTML = losername + " lost!";
+        $("#turn").removeClass('yourturn');
+        $("#turn").addClass('someonelost');
+        return;
+    }
+    $.get("/sweeper/board_state", {
+            "pid": pid,
+        }, function(state) {
+            on_board_state(state);
+            if (re) {
+                setTimeout(request_board_state(re), re);
+            }
+        });
+}
+
+function on_board_state(state) {
+    state = JSON.parse(state);
+    if (state["turn"] == "") {
+        $("#turn")[0].innerHTML = "Your turn!";
+        $("#turn").addClass('yourturn');
+        myturn = true;
+    } else {
+        $("#turn")[0].innerHTML = state["turn"] + "'s turn";
+        $("#turn").removeClass('yourturn');
+        myturn = false;
+    }
+
+    for (var y = 0; y < board_y; y++) {
+        for (var x = 0; x < board_x; x++) {
+            var s = state["board"][y*board_x+x];
+            if (s != "x") {
+                $("#sq_"+x+"_"+y).addClass("empty");
+                $("#sq_"+x+"_"+y).removeClass("flagged");
+                if (parseInt(s) > 0) {
+                    $("#sq_"+x+"_"+y)[0].innerHTML = s;
+                }
+            }
+        }
+    }
+
+    if (state["bombs"] != "") {
+        is_over = true;
+        losername = state["loser"];
+        for (var y = 0; y < board_y; y++) {
+            for (var x = 0; x < board_x; x++) {
+                var s = state["bombs"][y*board_x+x];
+                if (s == "1") {
+                    $("#sq_"+x+"_"+y).addClass("bomb");
+                    $("#sq_"+x+"_"+y).removeClass("flagged");
+                }
+            }
+        }
+    }
 }
