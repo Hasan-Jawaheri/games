@@ -36,7 +36,6 @@ $(document).ready(function () {
     $("#board")[0].innerHTML += elems;
 
     pid = $("#pid")[0].innerHTML;
-    request_board_state();
     request_board_state(500);
 
     /*var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
@@ -74,9 +73,13 @@ function flag_box(x, y) {
 
 function request_board_state(re) {
     if (is_over) {
-        $("#turn")[0].innerHTML = losername + " lost!";
+        if (losername.length > 0)
+            $("#turn")[0].innerHTML = losername + " lost!";
+        else
+            $("#turn")[0].innerHTML = "The bombs have been found!";
         $("#turn").removeClass('yourturn');
-        $("#turn").addClass('someonelost');
+        $("#turn").removeClass('someonelost');
+        $("#turn").addClass('stabilized');
         return;
     }
     $.get("/sweeper/board_state", {
@@ -126,5 +129,10 @@ function on_board_state(state) {
                 }
             }
         }
+    }
+
+    if (state["over"] == 1) {
+        is_over = true;
+        losername = "";
     }
 }
