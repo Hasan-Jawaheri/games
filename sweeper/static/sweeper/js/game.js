@@ -36,7 +36,6 @@ $(document).ready(function () {
     $("#board")[0].innerHTML += elems;
 
     pid = $("#pid")[0].innerHTML;
-    request_board_state();
     request_board_state(500);
 
     /*var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
@@ -87,7 +86,7 @@ function request_board_state(re) {
             "pid": pid,
         }, function(state) {
             on_board_state(state);
-            if (re && !is_over) {
+            if (re) {
                 setTimeout(request_board_state(re), re);
             }
         });
