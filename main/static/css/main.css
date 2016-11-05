@@ -1,0 +1,19 @@
+html, 
+body {
+    height: 100%;
+}
+
+.highlighted-text {
+  color: #627894;
+}
+
+#chat-container {
+  border-left: 2px solid #627894;
+  padding: 10px;
+  height: 85%;
+}
+
+#chat-texts {
+  height: 90%;
+  overflow-y: scroll;
+}

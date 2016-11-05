@@ -2,21 +2,14 @@
 
 {% load staticfiles %}
 
-{% block content %}
+{% block game %}
   <link rel="stylesheet" href="{% static 'sweeper/css/index.css' %}"/>
   <script src="{% static 'sweeper/js/game.js' %}"></script>
   <script src="{% static 'js/reconnecting-websocket.min.js' %}"></script>
 
-  <div class="row">
-    <div class="col-md-9">
-      <h4 style="text-align:center">Session key: <span style="color: red;">{{session}}</span></h3>
-      <h4 style="text-align:center"id="turn" class="yourturn"></h3>
-      <div id="board">
-      </div>
-      <div id="pid" style="display: none">{{player.id}}</div>
-    </div>
-    <div class="col-md-3">
-      THIS SHOULD BE A CHAT
-    </div>
+  <h4 style="text-align:center">Session key: <span class="highlighted-text">{{session}}</span></h3>
+  <h4 style="text-align:center"id="turn" class="yourturn"></h3>
+  <div id="board">
   </div>
+  <div id="pid" style="display: none">{{player.id}}</div>
 {% endblock %}
