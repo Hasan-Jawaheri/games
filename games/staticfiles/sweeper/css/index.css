@@ -4,28 +4,26 @@
   width: 600px;
   height: 600px;
   margin: auto;
-  background: #222244;
+  background: #ffffff;
 }
 
 .box {
-  width: 26px;
-  height: 26px;
-  margin: 2px;
+  width: 28px;
+  height: 28px;
+  margin: 1px;
   float: left;
-  border-width: 1px;
-  border-color: #333366;
-  background-color: #6666aa;
+  background-color: #627894;
   text-align: center;
   font-size: 20px;
   font-weight: bold;
 }
 
 .box:hover {
-  background-color: #9999dd;
+  background-color: #466289;
 }
 
 .empty {
-  background-color: #aaaaff;
+  background-color: #A0AEC1;
 }
 
 .flagged {
@@ -47,5 +45,5 @@
 }
 
 .stabilized {
-  color: yellow;
+  color: grey;
 }
