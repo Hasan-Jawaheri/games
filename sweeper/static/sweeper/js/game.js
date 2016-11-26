@@ -5,6 +5,7 @@ var myturn = false;
 var is_over = false;
 var losername = "";
 var pid = 0;
+var game_socket;
 
 $(document).ready(function () {
     document.getElementById("board").oncontextmenu = function(e){ e.preventDefault();}
@@ -21,7 +22,15 @@ $(document).ready(function () {
     $("#board")[0].innerHTML += elems;
 
     pid = $("#pid")[0].innerHTML;
-    //request_board_state(500);
+
+
+    var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    game_socket = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/game/" + sessionKey);
+    game_socket.onmessage = function(message) {
+        on_board_state(message.data);
+    };
+
+    request_board_state();
 });
 
 function check_box(x, y) {
@@ -71,13 +80,16 @@ function request_board_state(re) {
 }
 
 function on_board_state(state) {
+    if (state == "ok")
+        return;
+
     try {
         state = JSON.parse(state);
     } catch(err) {
         console.log(err.message);
         return;
     }
-    if (state["turn"] == "") {
+    if (state["turn"] == myName) {
         $("#turn")[0].innerHTML = "Your turn!";
         $("#turn").addClass('yourturn');
         myturn = true;

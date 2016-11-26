@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 import random, string, json
 from sweeper.models import *
+from channels import Group
 
 def mine_count_around(board, x, y):
   count = 0
@@ -84,7 +85,7 @@ def get_board_state(board, player):
       playeridx = i
   turn = "ERROR"
   if playeridx != -1:
-    turn = players[board.cur_player].username if playeridx != board.cur_player else ""
+    turn = players[board.cur_player].username
 
   return json.dumps({
     "error": 0,
@@ -209,7 +210,14 @@ def check_box(r):
     # explore all neighboring
     expand_board(board, x, y)
 
-  return HttpResponse(get_board_state(board, player))
+  # broadcast the change!
+  try:
+    state = get_board_state(board, player)
+    Group('game-'+board.session_key).send({'text': state})
+  except Exception as e:
+    print str(e)
+
+  return HttpResponse("ok")
 
 
 

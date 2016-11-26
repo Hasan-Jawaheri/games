@@ -16,7 +16,7 @@ $(document).ready(function () {
   });
 
   var sessionObj = $("#session-key");
-  if (sessionObj) {
+  if (sessionObj.length) {
     sessionKey = sessionObj[0].innerHTML;
     var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
     chat_socket = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/chat/" + sessionKey);
@@ -32,21 +32,19 @@ $(document).ready(function () {
     });
   }
   var playerObj = $("#pname");
-  if (playerObj) {
+  if (playerObj.length) {
     myName = playerObj[0].innerHTML;
   }
 });
 
 function send_chat_msg() {
-    console.log(chat_socket);
   var msg = $("#chat-message")[0].value;
   $("#chat-message")[0].value = "";
 
   if (chat_socket) {
-    console.log("sending " + msg);
     chat_socket.send(JSON.stringify({
       'sender': myName,
-      'handle': sessionKey,
+      'session': sessionKey,
       'message': msg
     }));
   }
