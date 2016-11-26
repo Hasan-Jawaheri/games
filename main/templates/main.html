@@ -57,22 +57,13 @@
     <div class="col-md-3" id="chat-container">
       <div id="chat-texts">
         <p class="highlighted-text" style="text-align:center">Chat with the players in the room!</p>
-        <p>Hey man</p>
-        <p>Hey man</p>
-        <p>Hey man</p>
-        <p>Hey man</p>
-        <p>Hey manmanmanmanmanmanmanmanman man man man manman manmanman</p>
-        <p>Hey man</p>
-        <p>Hey man</p>
-        <p>Hey man</p>
-        <p>Hey man</p>
       </div>
       <br/>
       <div id="chat-input">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Enter message...">
+          <input type="text" id="chat-message" class="form-control" placeholder="Enter message...">
           <span class="input-group-btn">
-            <button class="btn btn-default" type="button">Send</button>
+            <button class="btn btn-default" type="button" onclick="send_chat_msg();">Send</button>
           </span>
         </div><!-- /input-group -->
       </div>

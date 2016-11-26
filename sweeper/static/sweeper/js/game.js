@@ -21,7 +21,7 @@ $(document).ready(function () {
     $("#board")[0].innerHTML += elems;
 
     pid = $("#pid")[0].innerHTML;
-    request_board_state(500);
+    //request_board_state(500);
 });
 
 function check_box(x, y) {

@@ -7,9 +7,10 @@
   <script src="{% static 'sweeper/js/game.js' %}"></script>
   <script src="{% static 'js/reconnecting-websocket.min.js' %}"></script>
 
-  <h4 style="text-align:center">Session key: <span class="highlighted-text">{{session}}</span></h3>
+  <h4 style="text-align:center">Session key: <span id="session-key" class="highlighted-text">{{session}}</span></h3>
   <h4 style="text-align:center"id="turn" class="yourturn"></h3>
   <div id="board">
   </div>
   <div id="pid" style="display: none">{{player.id}}</div>
+  <div id="pname" style="display: none">{{player.username}}</div>
 {% endblock %}
