@@ -71,7 +71,12 @@ function request_board_state(re) {
 }
 
 function on_board_state(state) {
-    state = JSON.parse(state);
+    try {
+        state = JSON.parse(state);
+    } catch(err) {
+        console.log(err.message);
+        return;
+    }
     if (state["turn"] == "") {
         $("#turn")[0].innerHTML = "Your turn!";
         $("#turn").addClass('yourturn');
