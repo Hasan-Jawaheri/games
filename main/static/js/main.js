@@ -23,7 +23,9 @@ $(document).ready(function () {
     chat_socket.onmessage = function(message) {
       var msg = JSON.parse(message.data);
       var html = "<div class='msg'><span class='sendername'>"+msg['sender']+": </span>"+msg['message']+"</div>";
-      $("#chat-texts").append(html);
+      var chattexts = $("#chat-texts");
+      chattexts.append(html);
+      chattexts[0].scrollTop = chattexts[0].scrollHeight;
     };
 
     $("#chat-message").on('keyup', function (e) {
@@ -41,7 +43,7 @@ function send_chat_msg() {
   var msg = $("#chat-message")[0].value;
   $("#chat-message")[0].value = "";
 
-  if (chat_socket) {
+  if (chat_socket && msg.length > 0 ) {
     chat_socket.send(JSON.stringify({
       'sender': myName,
       'session': sessionKey,
