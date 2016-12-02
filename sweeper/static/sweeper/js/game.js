@@ -54,7 +54,8 @@ function flag_box(x, y) {
     if (is_over)
         return true;
 
-    $("#sq_"+x+"_"+y).toggleClass("flagged");
+    if (board_state[y*board_x+x] == 0)
+        $("#sq_"+x+"_"+y).toggleClass("flagged");
 
     return false;
 }
@@ -109,7 +110,9 @@ function on_board_state(state) {
     for (var y = 0; y < board_y; y++) {
         for (var x = 0; x < board_x; x++) {
             var s = state["board"][y*board_x+x];
+            board_state[y*board_x+x] = 0;
             if (s != "x") {
+                board_state[y*board_x+x] = 1;
                 $("#sq_"+x+"_"+y).addClass("empty");
                 $("#sq_"+x+"_"+y).removeClass("flagged");
                 if (parseInt(s) > 0) {
