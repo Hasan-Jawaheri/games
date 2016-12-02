@@ -44,6 +44,7 @@ function check_box(x, y) {
             "y": y,
             "pid": pid
         }, function(state) {
+            myturn = true;
             on_board_state(state);
         });
     }
@@ -89,6 +90,12 @@ function on_board_state(state) {
         console.log(err.message);
         return;
     }
+
+    if (state["error"] != 0) {
+        console.log("Server error: " + state["error"]);
+        return;
+    }
+
     if (state["turn"] == myName) {
         $("#turn")[0].innerHTML = "Your turn!";
         $("#turn").addClass('yourturn');

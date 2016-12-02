@@ -187,15 +187,15 @@ def check_box(r):
       raise
   except Exception as e:
     print (str(e))
-    return HttpResponse({"error": "Failed"})
+    return HttpResponse(json.dumps({"error": "Failed"}))
 
   if board.is_over > -1:
-    return HttpResponse({"error": "Game over sadeeg"})
+    return HttpResponse(json.dumps({"error": "Game over sadeeg"}))
   if board.cur_player != myindex:
-    return HttpResponse({"error": "7abibi not ur turn"})
+    return HttpResponse(json.dumps({"error": "7abibi not ur turn"}))
 
   if board.is_opened[y*20+x] == "1":
-    return HttpResponse({"error": "used box bro"})
+    return HttpResponse(json.dumps({"error": "used box bro"}))
 
   tmp = list(board.is_opened)
   tmp[y*20+x] = "1"

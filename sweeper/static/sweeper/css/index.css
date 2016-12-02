@@ -36,6 +36,14 @@
   background-size:cover;
 }
 
+.box.empty.bomb {
+  background-color: #AA0000 !important;
+  /* Hide the text. */
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .yourturn {
   color: green;
 }
