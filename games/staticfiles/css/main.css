@@ -17,3 +17,8 @@ body {
   height: 90%;
   overflow-y: scroll;
 }
+
+.sendername {
+  font-weight: bold;
+  color: #627894;
+}

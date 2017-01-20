@@ -1,0 +1,49 @@
+{% extends 'main.html' %} {% load staticfiles %} {% block game %}
+    <link rel="stylesheet" href="{% static 'cah/css/game.css' %}" />
+    <script src="{% static 'cah/js/game.js' %}"></script>
+    <script src="{% static 'js/reconnecting-websocket.min.js' %}"></script>
+
+    <div id="header">
+        <h4 style="text-align:center">Session key: <span id="session-key" class="highlighted-text">{{session}}</span></h4>
+        <h4 style="text-align:center" id="turn" class="yourturn"></h4>
+    </div>
+    <div id="board">
+        <div id="current-card" class="col-md-4">
+            <p class="game-text">
+                Card in play
+            </p>
+            <div id="card-in-play" class="card black-card noselect">
+                I got 99 problems but _____ ain't one.
+            </div>
+        </div>
+        <div id="current-play" class="col-md-4">
+            <p class="game-text">
+                Current play
+            </p>
+            <br />
+            <div id="current-play-card">
+                <p id="current-play-card-top" class="card black-card noselect">
+                    I got 99 problems but _____ ain't one.
+                </p>
+                <div id="current-play-card-bottom" class="btn btn-success btn-justified">Lock cards!</div>
+            </div>
+        </div>
+        <div id="scoreboard" class="col-md-4">
+            <p class="game-text">
+                Scoreboard
+            </p>
+            <div id="scoreboard-list" class="card black-card noselect">
+                <ul class="list-group">
+                    <li class="list-group-item">Hasan <span class="badge badge-info">7</span></li>
+                    <li class="list-group-item">Layla <span class="badge badge-info">4</span></li>
+                    <li class="list-group-item list-group-item-danger">Bayan <span class="badge badge-info">3</span></li>
+                    <li class="list-group-item">Ammar <span class="badge badge-info">1</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="hand">
+    </div>
+    <div id="pid" style="display: none">{{player.id}}</div>
+    <div id="pname" style="display: none">{{player.username}}</div>
+{% endblock %}

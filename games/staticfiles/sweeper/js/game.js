@@ -5,6 +5,7 @@ var myturn = false;
 var is_over = false;
 var losername = "";
 var pid = 0;
+var game_socket;
 
 $(document).ready(function () {
     document.getElementById("board").oncontextmenu = function(e){ e.preventDefault();}
@@ -21,7 +22,15 @@ $(document).ready(function () {
     $("#board")[0].innerHTML += elems;
 
     pid = $("#pid")[0].innerHTML;
-    request_board_state(500);
+
+
+    var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    game_socket = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/game/" + sessionKey);
+    game_socket.onmessage = function(message) {
+        on_board_state(message.data);
+    };
+
+    request_board_state();
 });
 
 function check_box(x, y) {
@@ -35,6 +44,7 @@ function check_box(x, y) {
             "y": y,
             "pid": pid
         }, function(state) {
+            myturn = true;
             on_board_state(state);
         });
     }
@@ -44,7 +54,8 @@ function flag_box(x, y) {
     if (is_over)
         return true;
 
-    $("#sq_"+x+"_"+y).toggleClass("flagged");
+    if (board_state[y*board_x+x] == 0)
+        $("#sq_"+x+"_"+y).toggleClass("flagged");
 
     return false;
 }
@@ -71,8 +82,22 @@ function request_board_state(re) {
 }
 
 function on_board_state(state) {
-    state = JSON.parse(state);
-    if (state["turn"] == "") {
+    if (state == "ok")
+        return;
+
+    try {
+        state = JSON.parse(state);
+    } catch(err) {
+        console.log(err.message);
+        return;
+    }
+
+    if (state["error"] != 0) {
+        console.log("Server error: " + state["error"]);
+        return;
+    }
+
+    if (state["turn"] == myName) {
         $("#turn")[0].innerHTML = "Your turn!";
         $("#turn").addClass('yourturn');
         myturn = true;
@@ -85,7 +110,9 @@ function on_board_state(state) {
     for (var y = 0; y < board_y; y++) {
         for (var x = 0; x < board_x; x++) {
             var s = state["board"][y*board_x+x];
+            board_state[y*board_x+x] = 0;
             if (s != "x") {
+                board_state[y*board_x+x] = 1;
                 $("#sq_"+x+"_"+y).addClass("empty");
                 $("#sq_"+x+"_"+y).removeClass("flagged");
                 if (parseInt(s) > 0) {

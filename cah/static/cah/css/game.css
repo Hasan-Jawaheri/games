@@ -1,0 +1,122 @@
+
+#game-container {
+    height: calc(100% - 72px);
+    overflow: hidden;
+}
+
+#header {
+    height: 60px;
+    overflow: hidden;
+}
+
+#board {
+    height: calc(100% - 250px - 60px);
+    overflow: hidden;
+}
+
+#hand {
+    height: 250px;
+    overflow: hidden;
+}
+
+.game-text {
+    font-size: 22px;
+    font-family: cursive;
+}
+
+.noselect {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+
+    /*
+      Introduced in IE 10.
+      See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+    */
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.card {
+    display: inline-block;
+    height: 250px;
+    width: 200px;
+    margin-top: 20px;
+    background-color: #fafafa;
+    border: 1px #aaaaaa solid;
+    border-bottom: 0px;
+    border-radius: 10px;
+    overflow-y: auto;
+    position: absolute;
+
+    padding: 15px;
+    color: #111111;
+    font-size: 18px;
+    font-family: cursive;
+
+    cursor: pointer;
+}
+
+.black-card {
+    background-color: #121212;
+    color: white;
+}
+
+.card:hover {
+    -webkit-box-shadow: 5px 5px 16px 5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 5px 16px 5px rgba(0,0,0,0.75);
+    box-shadow: 5px 5px 16px 5px rgba(0,0,0,0.75);
+}
+
+#current-card {
+    text-align: center;
+    height: 100%;
+    position: relative;
+}
+
+#current-play {
+    text-align: center;
+    height: 100%;
+    position: relative;
+}
+
+#scoreboard {
+    text-align: center;
+    height: 100%;
+    position: relative;
+}
+
+#card-in-play, #current-play-card, #scoreboard-list {
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    height: 300px;
+    width: 240px;
+}
+
+#current-play-card-top {
+    position: static;
+    margin-bottom: 0px;
+    height: 265px;
+    width: 240px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: 0px;
+}
+
+#current-play-card-bottom {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin: 0px;
+    margin-top: -5px;
+    height: 35px;
+    width: 240px;
+}
+
+ #scoreboard-list {
+     text-align: left;
+     color: black;
+ }

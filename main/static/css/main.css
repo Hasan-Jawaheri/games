@@ -1,4 +1,4 @@
-html, 
+html,
 body {
     height: 100%;
 }
@@ -10,7 +10,8 @@ body {
 #chat-container {
   border-left: 2px solid #627894;
   padding: 10px;
-  height: 85%;
+  height: calc(100% - 52px);
+  margin-top: -20px;
 }
 
 #chat-texts {
