@@ -13,7 +13,7 @@ function new_game(url) {
         return;
     }
 
-    $.get('/sweeper/new_game',
+    $.get(url,
     {
         "name": name,
     }, function (data) {
@@ -35,7 +35,7 @@ function join_game(url) {
         return;
     }
 
-    $.get('/sweeper/join_game',
+    $.get(url,
     {
         "name": name,
         "session": session
