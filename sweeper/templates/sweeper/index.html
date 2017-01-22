@@ -11,7 +11,7 @@
       <form>
         <input id="name" type="text" class="form-control" placeholder="Your name"/>
         <br/>
-        <div class="btn btn-success" onclick="sweeper_new_game('{% url 'new_game' %}');" style="margin: auto; width: 200px;">Create new game</div>
+        <div class="btn btn-success" onclick="new_game('{% url 'sweeper_new_game' %}');" style="margin: auto; width: 200px;">Create new game</div>
         <br/>
         <br/>
         OR
@@ -20,7 +20,7 @@
         <div class="input-group">
           <input id="session" type="text" class="form-control" placeholder="Game Session">
           <span class="input-group-btn">
-            <button class="btn btn-success" onclick="sweeper_join_game('{% url 'join_game' %}');" type="button">Join</button>
+            <button class="btn btn-success" onclick="join_game('{% url 'sweeper_join_game' %}');" type="button">Join</button>
           </span>
         </div>
       </form>
