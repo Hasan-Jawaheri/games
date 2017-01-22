@@ -19,6 +19,6 @@ from cah import views
 
 urlpatterns = [
     url(r'^$', views.index, name='cah'),
-    url(r'^new_game', views.new_game, name='new_game'),
-    url(r'^join_game', views.join_game, name='join_game'),
+    url(r'^new_game', views.new_game, name='cah_new_game'),
+    url(r'^join_game', views.join_game, name='cah_join_game'),
 ]
