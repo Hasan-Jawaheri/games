@@ -68,13 +68,15 @@
     box-shadow: 5px 5px 16px 5px rgba(0,0,0,0.75);
 }
 
-#current-card {
-    text-align: center;
-    height: 100%;
-    position: relative;
+.selected-card: {
+    background-color: #627894 !important;
 }
 
-#current-play {
+.play-inline {
+    color: #627894;
+}
+
+#current-card, #judge-board, #current-play {
     text-align: center;
     height: 100%;
     position: relative;
@@ -86,7 +88,7 @@
     position: relative;
 }
 
-#card-in-play, #current-play-card, #scoreboard-list {
+#card-in-play, #current-play-card, #judge-card, #scoreboard-list {
     position: absolute;
     top: 50%;
     left:50%;
@@ -95,7 +97,7 @@
     width: 240px;
 }
 
-#current-play-card-top {
+#current-play-card-top, #judge-card-top {
     position: static;
     margin-bottom: 0px;
     height: 265px;
@@ -105,7 +107,7 @@
     border: 0px;
 }
 
-#current-play-card-bottom {
+#current-play-card-bottom, #judge-card-bottom {
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
     border-bottom-left-radius: 10px;
@@ -116,7 +118,11 @@
     width: 240px;
 }
 
- #scoreboard-list {
-     text-align: left;
-     color: black;
- }
+#scoreboard-list {
+    text-align: left;
+    color: black;
+}
+
+.judge-button.active {
+    background-color: #5cb85c;
+}

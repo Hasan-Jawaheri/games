@@ -21,4 +21,9 @@ urlpatterns = [
     url(r'^$', views.index, name='cah'),
     url(r'^new_game', views.new_game, name='cah_new_game'),
     url(r'^join_game', views.join_game, name='cah_join_game'),
+    url(r'^board_state', views.board_state, name='cah_board_state'),
+    url(r'^submit_play', views.submit_play, name='cah_submit_play'),
+    url(r'^select_winner', views.select_winner, name='cah_select_winner'),
+
+    url(r'^populate_cards', views.populate_cards, name='cah_populate_cards'),
 ]

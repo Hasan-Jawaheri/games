@@ -13,19 +13,27 @@
                 Card in play
             </p>
             <div id="card-in-play" class="card black-card noselect">
-                I got 99 problems but _____ ain't one.
             </div>
         </div>
-        <div id="current-play" class="col-md-4">
+        <div id="current-play" class="col-md-4" style="display: none">
             <p class="game-text">
                 Current play
             </p>
             <br />
             <div id="current-play-card">
                 <p id="current-play-card-top" class="card black-card noselect">
-                    I got 99 problems but _____ ain't one.
                 </p>
-                <div id="current-play-card-bottom" class="btn btn-success btn-justified">Lock cards!</div>
+                <button id="current-play-card-bottom" class="btn btn-success btn-justified" onclick="lock_cards()">Lock cards!</button>
+            </div>
+        </div>
+        <div id="judge-board" class="col-md-4" style="display: None;">
+            <p class="game-text">
+                Judge Options
+            </p>
+            <div id="judge-card">
+                <p id="judge-card-top" class="card black-card noselect">
+                </p>
+                <button id="judge-card-bottom" class="btn btn-success btn-justified" onclick="select_winner()">Select Winner</button>
             </div>
         </div>
         <div id="scoreboard" class="col-md-4">
@@ -34,10 +42,6 @@
             </p>
             <div id="scoreboard-list" class="card black-card noselect">
                 <ul class="list-group">
-                    <li class="list-group-item">Hasan <span class="badge badge-info">7</span></li>
-                    <li class="list-group-item">Layla <span class="badge badge-info">4</span></li>
-                    <li class="list-group-item list-group-item-danger">Bayan <span class="badge badge-info">3</span></li>
-                    <li class="list-group-item">Ammar <span class="badge badge-info">1</span></li>
                 </ul>
             </div>
         </div>
