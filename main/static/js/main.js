@@ -1,6 +1,6 @@
 var chat_socket;
 var sessionKey;
-var myName = "Layla";
+var myName = "Dummy";
 
 $(document).ready(function () {
   // Ajax setup to forward the CSRF token
